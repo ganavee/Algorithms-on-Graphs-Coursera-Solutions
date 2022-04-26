@@ -1,5 +1,6 @@
-def max_pairwise_product(numbers):
-    max_prod = 0
+import random
+def max_pairwise_product_fast(numbers):
+    
     
     #METHOD 1
     #construct max heap
@@ -29,7 +30,29 @@ def max_pairwise_product(numbers):
     return(first_max * second_max)
 
 
+def max_pairwise_product(numbers):
+    #METHOD 4
+    #Naive Solution
+    length = len(numbers)
+    max_prod = 0
+    for i in range(0, length-1):
+        for j in range(i+1, length):
+            if(numbers[i]*numbers[j] > max_prod):
+                max_prod = numbers[i]*numbers[j]
+    return max_prod
+
+
 if __name__ == '__main__':
-    input_n = int(input())
-    input_numbers = [int(x) for x in input().split()]
-    print(max_pairwise_product(input_numbers))
+    while(True):
+        input_n = random.random()
+        input_n = int(input_n * 10) + 2
+        input_numbers = [random.randint(2, 10000) for i in range(input_n)]
+        print("n = {0} input_numbers {1}".format(input_n, input_numbers))
+        #input_numbers = [int(x) for x in input().split()]
+        fast = max_pairwise_product_fast(input_numbers)
+        slow = max_pairwise_product(input_numbers)
+        if(fast != slow):
+            print("Fast {0} Slow {1}".format(fast, slow))
+            break
+        print()
+        
